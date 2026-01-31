@@ -1,8 +1,8 @@
 #This file contains the pydantic models that are being used in the Rakshak app
-from pydantic import BaseModel
-from typing import List, Optional, Literal
+from pydantic import BaseModel, Field, conlist
+from typing import List, Optional, Literal, Annotated
 from datetime import datetime
-from langchain.messages import AnyMessage
+from langchain.messages import AnyMessage,AIMessage
 
 #pydantic models defining the structure of incoming data in rakshak file
 class Message(BaseModel):
@@ -36,15 +36,19 @@ class EngagementMetrics(BaseModel):
     engagementDurationSeconds: int
     totalMessagesExchanged: int
 
-class AgentReply(BaseModel):
-    sender: str
-    text: str
-    timestamp: datetime
-
 class Response(BaseModel):
     status: str
     scamDetected: str
-    agentReply: AgentReply
     engagementMetrics: EngagementMetrics
     extractedIntelligence: ExtractedIntelligence
     agentNotes: str
+
+#pydantic model for conversing agent reply to the endpoint
+class AgentReply(BaseModel):
+    status: str
+    reply: str
+
+#pydantic model for K2's reply
+class K2_reply(BaseModel):
+    reply: Annotated[List[AIMessage], Field(min_length=1,description="Human-like assistant reply to be sent to the user")]
+    next_step: Literal ["extraction","End"] = Field ("End",description="The next node in the graph")
