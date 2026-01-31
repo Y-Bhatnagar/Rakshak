@@ -51,4 +51,6 @@ class AgentReply(BaseModel):
 #pydantic model for K2's reply
 class K2_reply(BaseModel):
     reply: Annotated[List[AIMessage], Field(min_length=1,description="Human-like assistant reply to be sent to the user")]
-    next_step: Literal ["extraction","End"] = Field ("End",description="The next node in the graph")
+    confidence_score: float = Field(ge=0.0, le=1.0, description="Confidence score for the K2 reply")
+    info_score: float = Field(ge=0.0, le=1.0, description="Information score describes how sufficient the conversation is for extracting structured scammer intelligence (accounts, links, payment handles")
+    scam_detected: bool = Field(description="Whether a scam was detected in the conversation")
