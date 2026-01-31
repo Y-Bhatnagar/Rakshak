@@ -8,11 +8,11 @@ if not API_KEY:
 #endpoint and key for the Kim K2 thinking model
 if not os.getenv("KIMI_K2_ENDPOINT"):
     os.environ["KIMI_K2_ENDPOINT"] = getpass.getpass("Enter Kim K2 thinking model endpoint: ")
-Kim_K2_endpoint = os.getenv("KIMI_K2_ENDPOINT")
+Kimi_K2_endpoint = os.getenv("KIMI_K2_ENDPOINT")
 
 if not os.getenv("PROJECT_KEY"):
     os.environ["PROJECT_KEY"] = getpass.getpass("Enter Kim K2 thinking modelkey: ")
-Kim_K2_key = os.getenv("PROJECT_KEY")
+Kimi_K2_key = os.getenv("PROJECT_KEY")
 
 #endpoint and key for the GPT-5-mini model
 if not os.getenv("GPT_5_MINI_ENDPOINT"):
