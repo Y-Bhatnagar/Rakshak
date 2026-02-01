@@ -25,7 +25,8 @@ config = {"configurable" : {"thread_id" : "1"}}
 
 async def run():
     reply = await flow.ainvoke({"messages": test_msg}, config=config)
-    print(f"Reply: {reply}")
+    last_reply =reply["messages"][-1].content
+    print(f"Reply: {last_reply}")
     return reply
 
 asyncio.run(run())
