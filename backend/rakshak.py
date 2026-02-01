@@ -5,6 +5,7 @@ from backend.config import API_KEY
 from utility.model import Request,SessionState
 from backend.state import check_language, update_state
 from utility.state_lock import get_lock
+from intellegence.graph import intel
 
 #authentication of the Api Key to access service
 def verify_api_key (x_api_key: str = Header(...)):
