@@ -3,3 +3,4 @@ uvicorn
 langchain
 langgraph
 asyncio
+langchain_azure_ai

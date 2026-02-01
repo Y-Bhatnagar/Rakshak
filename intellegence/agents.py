@@ -3,6 +3,7 @@ from langchain.agents.structured_output import ToolStrategy
 from langchain.messages import SystemMessage
 from intellegence.model import Kimi_K2_model
 from utility.model import K2_reply
+from intellegence.system_prompts import K2_prompt
 
 #conversing model
 con_agent = create_agent(

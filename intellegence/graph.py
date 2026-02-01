@@ -1,12 +1,13 @@
-from langgraph.graph import START, StateGraph, MessagesState, END
-from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, AnyMessage
+from langgraph.graph import START, StateGraph, END
+from langchain_core.messages import AnyMessage, HumanMessage, AIMessage
+from typing import List
+import asyncio
 from langgraph.checkpoint.memory import InMemorySaver
 from intellegence.nodes import k2_node
-from utility.model import K2_reply_state
+from intellegence.graph_state import Conversation
+from test_files.scam3t import test_msg
 
-#defining the state of graph
-class Conversation (MessagesState):
-    K2: K2_reply_state
+# graph state is being imported from another file
 
 memory = InMemorySaver()
 
@@ -22,5 +23,9 @@ config = {"configurable" : {"thread_id" : "1"}}
 #async def intel (msg_hist: list[AnyMessage]):
     #return flow.invoke({"messages": msg_hist}, config=config)"
 
-async def run(msg_hist: list[AnyMessage]):
-    return await flow.ainvoke({"messages": msg_hist}, config=config)
+async def run():
+    reply = await flow.ainvoke({"messages": test_msg}, config=config)
+    print(f"Reply: {reply}")
+    return reply
+
+asyncio.run(run())
