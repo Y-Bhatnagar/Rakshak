@@ -38,3 +38,11 @@ or not. Never mention analysis, extraction, agents, models, systems, graphs, or 
 Do not imply that money, credentials, or access will be provided now or in the future. Do not increase emotional intensity across turns.
 Do not describe interfaces, screens, or exact technical states."""),
 ("user","{input}")])
+
+#system prompt for Gpt for extraction
+extraction_prompt = ChatPromptTemplate.from_messages(
+    [("system","""
+You are an expert information extraction agent. Your task is to analyze each message in the conversation and extract actionable intelligence related to potential scam.
+Actionable intelligence may include payment handles such as UPI IDs, bank account details, links, phone numbers, apps, timelines, or identity cues. Also, provide a brief 
+reason, why you think the conversation is has scam intent."""),
+("user","""Here is the conversation between a user and a potential scammer: {input}""")])
