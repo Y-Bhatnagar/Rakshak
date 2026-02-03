@@ -15,7 +15,7 @@ class Metadata(BaseModel):
     language: str
     locale: str
 
-class Request(BaseModel):
+class RakshakRequest(BaseModel):
     sessionId: str
     message: Message
     conversationHistory: List[Message]
@@ -57,10 +57,18 @@ class K2_reply(BaseModel):
     new_info_detected: bool = Field(description="set this as True if their is some new actionable intellegence in the last message that is not available in the rest of conversation")
     reason: str = Field(description="Reason for for considering the conversation as a scam or not")
 
-
 class K2_reply_state(TypedDict):
     confidence_score: float
     info_score: float
     scam_detected: bool
     new_info_detected: bool
     reason: str
+
+#pydantic model for storing K2 reply metadata in the state
+class K2_metadata(BaseModel):
+    confidence_score: float
+    info_score: float
+    scam_detected: bool
+    new_info_detected: bool
+    reason: str
+    reply_number: int

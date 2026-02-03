@@ -1,8 +1,8 @@
 #this file descibes the nodes that will be used in graph
-from intellegence.graph_state import Conversation
-#from intellegence.agents import con_agent
+from intellegence.graph_state import Conversation,gpt_invoked
 from intellegence.adv_model import ai
 from utility.model import K2_reply
+from utility.counter import messages_since_last_intel
 
 async def k2_node(state: Conversation):
     convo = state["messages"]
@@ -17,5 +17,14 @@ async def k2_node(state: Conversation):
         "reason": reply.reason
     }}
 
-#Gpt node for extraction
-#async def extraction_node(state: Conversation):
+async def router(state: Conversation):
+    # based on the state of conversation decide whether to route to K2_node or extraction_node
+    if (state["K2"]["scam_detected"] is True and state["K2"]["info_score"]>0.85 and
+        state["K2"]["new_info_detected"] is False and messages_since_last_intel>=3):
+        gpt_invoked = True
+        return "extraction"
+    else:
+        return "k2"
+
+async def extraction_node(state: Conversation):
+    
