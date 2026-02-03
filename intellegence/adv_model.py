@@ -6,3 +6,5 @@ from utility.model import K2_reply
 stu_K2 = Kimi_K2_model.with_structured_output(K2_reply)
 #chaining prompt and structured model
 ai = K2_prompt | stu_K2
+
+#binding 

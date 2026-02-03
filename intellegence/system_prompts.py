@@ -42,7 +42,13 @@ Do not describe interfaces, screens, or exact technical states."""),
 #system prompt for Gpt for extraction
 extraction_prompt = ChatPromptTemplate.from_messages(
     [("system","""
-You are an expert information extraction agent. Your task is to analyze each message in the conversation and extract actionable intelligence related to potential scam.
+You are an expert information extraction agent. Your task is to analyze the entire conversation history and extract actionable intelligence related to potential scam.
 Actionable intelligence may include payment handles such as UPI IDs, bank account details, links, phone numbers, apps, timelines, or identity cues. Also, provide a brief 
-reason, why you think the conversation is has scam intent."""),
+reason why you think the conversation has scam intent.
+When extracting information, consider the entire conversation history and extract only unique intelligence. Do not repeat information that has already appeared earlier in
+the conversation. 
+Only extract information that is explicitly stated in the conversation. Do not infer, assume, guess, or invent any details.
+If you find any other actionable intelligence other than bank accounts, UPI IDs, phishing links, phone numbers, also extract them and mention them under agentNotes field.
+If no actionable intelligence is found, return empty lists for all fields.
+Keep agentNotes concise and factual, limited to 2-3 short sentences. Do not use bullet points or markdown."""),
 ("user","""Here is the conversation between a user and a potential scammer: {input}""")])

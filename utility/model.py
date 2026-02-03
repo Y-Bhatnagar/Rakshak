@@ -31,6 +31,8 @@ class ExtractedIntelligence(BaseModel):
     bankAccounts: Optional[List[str]]
     upiIds: Optional[List[str]]
     phishingLinks: Optional[List[str]]
+    phoneNumbers: Optional[List[str]]
+    suspiciousKeywords: Optional[List[str]]
 
 class EngagementMetrics(BaseModel):
     engagementDurationSeconds: int
@@ -72,3 +74,13 @@ class K2_metadata(BaseModel):
     new_info_detected: bool
     reason: str
     reply_number: int
+
+#pydantic model for GPT extraction reply
+class gpt_extraction_reply(BaseModel):
+    scam_detected: bool = Field(description="Whether a scam was detected in the conversation")
+    bankAccounts: List[str] = Field(default_factory=list,description="List of bank account numbers extracted from the conversation")
+    upiIds: List[str] = Field(default_factory=list,description="List of UPI IDs extracted from the conversation")
+    phishingLinks: List[str] = Field(default_factory=list,description="List of phishing links extracted from the conversation")
+    phoneNumbers: List[str] = Field(default_factory=list,description="List of phone numbers extracted from the conversation")
+    suspiciousKeywords: List[str] = Field(default_factory=list,description="List of suspicious keywords indicating scam intent in the conversation")
+    agentNotes: str = Field(description="Brief reason explaining why the conversation is considered to have scam intent")
