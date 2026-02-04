@@ -13,7 +13,7 @@ Kimi_K2_model = AzureAIChatCompletionsModel(
     temperature = 0.75)
 
 #instantating the GPT-5-mini model for final output
-GPT_5_model = AzureAIChatCompletionsModel(
+gpt_5_model = AzureAIChatCompletionsModel(
     endpoint=GPT_5_mini_endpoint,
     credential=GPT_5_mini_key,
     model="gpt-5-mini",

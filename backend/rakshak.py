@@ -6,6 +6,7 @@ from utility.model import RakshakRequest,SessionState,K2_reply,AgentReply
 from backend.state import check_language, update_state, add_reply
 from utility.state_lock import get_lock
 from intellegence.graph import intel
+from utility.counter import msg_count
 
 #authentication of the Api Key to access service
 def verify_api_key (x_api_key: str = Header(...)):
@@ -26,7 +27,9 @@ async def receiver (payload: RakshakRequest):
         sessionState : SessionState = await update_state(payload.sessionId, payload.message)
         #sending the message to AI for the analysis
         msgs = sessionState.lang_obj
-        K2_obj: K2_reply = await intel(msgs)
+        count = msg_count (payload.sessionId)
+        print (f"Messages since last intel extraction: {count}\n")
+        K2_obj: K2_reply = await intel(msgs, count)
         updated_state: SessionState = await add_reply (payload.sessionId, K2_obj)
         # devriving the message object from the updated state
         K2_reply_msg_obj = updated_state.messages[-1]

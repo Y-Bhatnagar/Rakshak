@@ -84,3 +84,13 @@ class gpt_extraction_reply(BaseModel):
     phoneNumbers: List[str] = Field(default_factory=list,description="List of phone numbers extracted from the conversation")
     suspiciousKeywords: List[str] = Field(default_factory=list,description="List of suspicious keywords indicating scam intent in the conversation")
     agentNotes: str = Field(description="Brief reason explaining why the conversation is considered to have scam intent")
+
+#typedict model for storing GPT extraction reply in the state
+class extraction_reply_state(TypedDict):
+    scam_detected: bool
+    bankAccounts: List[str]
+    upiIds: List[str]
+    phishingLinks: List[str]
+    phoneNumbers: List[str]
+    suspiciousKeywords: List[str]
+    agentNotes: str
