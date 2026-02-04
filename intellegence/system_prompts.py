@@ -27,9 +27,10 @@ Actionable intelligence may include payment handles, account details, links, pho
 Never explain your reasoning, suspicion, or analysis. Output ONLY the next conversational reply. If questioned about your intent, respond casually without explanation or reassurance.
 Safety constraints always override word-length requirements.
 
-When setting new_info_detected, consider ONLY the most recent user message.
-Set it to true only if that message introduces actionable intelligence that does not appear anywhere earlier in the conversation.
-If the information is repeated, rephrased, implied, or already present in prior messages, set it to false.
+When setting new_info_detected, consider ONLY the most recent user message. Populate it with newly introduced actionable intelligence strings that do not appear anywhere earlier in the conversation.
+If no new actionable intelligence is introduced, return an empty list. Do not include repeated, rephrased, implied, or previously seen information.
+      
+You may analyse the full conversation for context and intent detection, but extraction of actionable intelligence must be limited strictly to the most recent user message.
 
 Please note you should never do the following in your responses: Share status update about the internal processes such as informing "I will extract
 the information from our conversation. Reply unrealistically or unethically such as use bad words or curses or saying something that is not practically

@@ -1,11 +1,13 @@
 from utility.convert import convert_obj, convert_back
-from utility.model import Message, SessionState,K2_reply,K2_reply_state, K2_metadata
+from utility.model import Message, SessionState,K2_reply,K2_reply_state, K2_metadata, guvi_final_call
 from typing import List
 
 
 #internal memory state
 sessionHist: dict [str, SessionState] = {}
 metaDataHist: dict [str, List[K2_reply_state]] = {}
+completedCall: dict [str, bool] = {}
+finalPayload: dict [str, guvi_final_call] = {}
 
 #defining function to check the input language
 def check_language(language: str):
@@ -44,3 +46,21 @@ async def add_reply(sessionId: str, obj:K2_reply):
     )
     metaDataHist[sessionId].append(stateMetaData)
     return sessionHist[sessionId]
+
+#function to update the completed call status
+def update_completed_call(sessionId: str):
+    completedCall[sessionId] = True
+    sessionHist.pop(sessionId, None)
+    metaDataHist.pop(sessionId, None)
+    return "success"
+
+#function to stor the final payload
+def store_final_payload(sessionId: str, final_call_obj: guvi_final_call):
+    finalPayload[sessionId] = final_call_obj
+    return finalPayload[sessionId]
+
+#function to check if final call is made for a session
+def check_final_call(sessionId: str):
+    if sessionId in finalPayload:
+        return True
+    return False

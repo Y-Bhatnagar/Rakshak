@@ -2,6 +2,8 @@
 from intellegence.graph_state import Conversation
 from intellegence.adv_model import ai,extraction_ai
 from utility.model import K2_reply, gpt_extraction_reply
+from langgraph.types import Command
+from langgraph.graph import END
 
 gpt_invoked: bool = False
 async def k2_node(state: Conversation):
@@ -19,13 +21,16 @@ async def k2_node(state: Conversation):
 
 def router(state: Conversation):
     # based on the state of conversation decide whether to route to K2_node or extraction_node
-    if (state["K2"]["scam_detected"] is True and state["K2"]["info_score"]>0.85 and
-        state["K2"]["new_info_detected"] is False and state["msg_since_last_intel"]>=3):
-        global gpt_invoked
-        gpt_invoked = True
-        return "extraction"
+    if (state["K2"].get("scam_detected") is True and state["K2"].get("info_score", 0) >= 0.85 and state["msg_since_last_intel"] >= 3):
+        return Command(
+            update = {"gpt_invoked": True},
+            goto = "extraction"
+        )
     else:
-        return "END"
+        return Command(
+            update = {"gpt_invoked": False},
+            goto = END
+        )
 
 async def extraction_node(state: Conversation):
     #extracting actionable intelligence using the extraction model

@@ -6,3 +6,4 @@ class Conversation (MessagesState):
     K2: K2_reply_state
     extraction: extraction_reply_state
     msg_since_last_intel: int
+    gpt_invoked: bool = False
