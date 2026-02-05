@@ -32,7 +32,7 @@ async def add_reply(sessionId: str, obj:K2_reply):
     msg : Message = convert_back(ai_msg[0])
     print (f"\n for ai_msg {ai_msg} \n converted message is {msg}\n")
     sessionHist[sessionId].messages.append(msg)
-    sessionHist[sessionId].lang_obj.append(ai_msg)
+    sessionHist[sessionId].lang_obj.append(ai_msg[0])
     if sessionId not in metaDataHist:
         metaDataHist[sessionId] = []
         count = 1

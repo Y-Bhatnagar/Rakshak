@@ -40,6 +40,7 @@ async def receiver (payload: RakshakRequest):
             sessionState : SessionState = await update_state(payload.sessionId, payload.message)
             #sending the message to AI for the analysis
             msgs = sessionState.lang_obj
+            print(f"\nmsgs: {msgs}")
             count = msg_count (payload.sessionId)
             print (f"Messages since last intel extraction: {count}\n")
             obj : list = await intel(msgs, count)
