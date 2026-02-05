@@ -3,6 +3,7 @@ import getpass
 
 API_KEY = os.getenv("API_KEY")
 if not API_KEY:
+    print ("false")
     raise RuntimeError("API_KEY is not found in environment variables")
 
 #endpoint and key for the Kim K2 thinking model
