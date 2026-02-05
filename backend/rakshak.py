@@ -44,9 +44,12 @@ async def receiver (payload: RakshakRequest):
             print (f"Messages since last intel extraction: {count}\n")
             obj : list = await intel(msgs, count)
             K2_obj: K2_reply = obj[0]
+            print(f"\nK2_obj: {K2_obj}\n")
             updated_state: SessionState = await add_reply (payload.sessionId, K2_obj)
+            print(f"\nupdate_state: {updated_state}")
             # devriving the message object from the updated state
             K2_reply_msg_obj = updated_state.messages[-1]
+            print(f"\n K2_reply_msg_obj: {K2_reply_msg_obj}\n")
             if K2_obj:
                 agent_reply=AgentReply(
                     status="success",

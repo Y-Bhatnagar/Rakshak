@@ -27,7 +27,7 @@ config = {"configurable" : {"thread_id" : "1"}}
         
 async def intel(test_msg: List[AnyMessage], num_msg: int):
     state = await flow.ainvoke({"messages": test_msg, "msg_since_last_intel": num_msg}, config=config)
-    print(f"the graph reply: {state}\n")
+    print(f"\nthe graph reply: {state}\n")
     if state.get("gpt_invoked") is False:
         last_reply = state["messages"][-1].content
         print(f"last_message: {last_reply}\n")

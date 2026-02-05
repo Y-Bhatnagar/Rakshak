@@ -29,10 +29,12 @@ async def update_state (sessionId:str, message: Message) -> SessionState:
 #defining function to add K2 reply to the session state
 async def add_reply(sessionId: str, obj:K2_reply):
     ai_msg = obj.reply
-    msg : Message = convert_back(ai_msg)
+    msg : Message = convert_back(ai_msg[0])
+    print (f"\n for ai_msg {ai_msg} \n converted message is {msg}\n")
     sessionHist[sessionId].messages.append(msg)
     sessionHist[sessionId].lang_obj.append(ai_msg)
     if sessionId not in metaDataHist:
+        metaDataHist[sessionId] = []
         count = 1
     else:
         count = len(metaDataHist[sessionId]) + 1
