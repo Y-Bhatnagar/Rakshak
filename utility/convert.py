@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Literal
 from datetime import datetime
 from langchain.messages import HumanMessage, AIMessage, AnyMessage
+from utility.model import Message
 
 #pydantic models defining the structure of incoming data
 class Message(BaseModel):
