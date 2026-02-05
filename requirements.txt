@@ -79,6 +79,8 @@ frozenlist==1.8.0
     # via
     #   aiohttp
     #   aiosignal
+gunicorn==25.0.1
+    # via -r requirements.in
 h11==0.16.0
     # via
     #   httpcore
@@ -164,6 +166,7 @@ ormsgpack==1.12.2
     # via langgraph-checkpoint
 packaging==25.0
     # via
+    #   gunicorn
     #   langchain-core
     #   langsmith
 propcache==0.4.1
